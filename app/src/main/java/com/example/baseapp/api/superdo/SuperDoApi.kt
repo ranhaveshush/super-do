@@ -52,10 +52,7 @@ class SuperDoApi {
                 if (isAlive) {
                     println("FAILURE: ${t.message}")
 
-                    val resource =
-                        Resource.error<GroceryResponse>(t.message ?: "WebSocket Failure", t)
-
-                    channel.offer(resource)
+                    channel.offer(Resource.error(t.message ?: "WebSocket Failure", t))
                 }
             }
         }

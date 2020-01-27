@@ -19,12 +19,7 @@ class SuperDoClient(private val api: SuperDoApi) : SupermarketService {
                 Resource.Status.LOADING -> emit(Resource.loading())
                 Resource.Status.SUCCESS -> {
                     resource.data?.let { groceryResponse ->
-                        val grocery = Grocery(
-                            groceryResponse.name,
-                            groceryResponse.weight,
-                            groceryResponse.bagColor
-                        )
-
+                        val grocery = groceryResponse.toGrocery()
                         emit(Resource.success(grocery))
                     }
                 }
