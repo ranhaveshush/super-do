@@ -12,6 +12,8 @@ class SuperDoApi {
     private val baseUrl = BuildConfig.SUPERMARKET_URL
 
     fun listGroceries(): Flow<Resource<GroceryResponse>> = channelFlow {
+        var isAlive = false
+
         val client = OkHttpClient.Builder().build()
 
         val request = Request.Builder()
@@ -22,13 +24,15 @@ class SuperDoApi {
             override fun onOpen(webSocket: WebSocket, response: Response?) {
                 println("OPEN:")
 
+                isAlive = true
+
                 channel.offer(Resource.loading())
             }
 
             override fun onMessage(webSocket: WebSocket?, text: String?) {
-                println("MESSAGE: $text")
+                if (isAlive && !text.isNullOrEmpty()) {
+                    println("MESSAGE: $text")
 
-                if (!text.isNullOrEmpty()) {
                     val jsonObject = JSONObject(text)
                     val grocery = GroceryResponse.fromJson(jsonObject)
 
@@ -38,8 +42,6 @@ class SuperDoApi {
 
             override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
                 println("CLOSE: $code $reason")
-
-                webSocket.close(1000, null)
             }
 
             override fun onFailure(
@@ -47,10 +49,14 @@ class SuperDoApi {
                 t: Throwable,
                 response: Response?
             ) {
-                println("FAILURE: ${t.message}")
+                if (isAlive) {
+                    println("FAILURE: ${t.message}")
 
-                val resource = Resource.error<GroceryResponse>(t.message ?: "WebSocket Failure", t)
-                channel.offer(resource)
+                    val resource =
+                        Resource.error<GroceryResponse>(t.message ?: "WebSocket Failure", t)
+
+                    channel.offer(resource)
+                }
             }
         }
 
@@ -59,7 +65,9 @@ class SuperDoApi {
         awaitClose {
             println("Await Close!")
 
-            webSocket.cancel()
+            isAlive = false
+
+            webSocket.close(1000, null)
         }
     }
 }
