@@ -1,2 +1,2 @@
-# base-app
-A basic app template.
+# Super-Do
+A basic MVVM client app for SuperDo WebSocket.
