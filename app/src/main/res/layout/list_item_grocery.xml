@@ -66,7 +66,7 @@
                     android:layout_marginTop="@dimen/margin_small"
                     android:alpha="0.3"
                     android:text="@string/list_item_grocery_weight"
-                    android:textAppearance="?andrIoid:attr/textAppearanceSmall"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="?android:attr/textColorSecondary"
                     android:textSize="12sp"
                     android:textStyle="bold"
