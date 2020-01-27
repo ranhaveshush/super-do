@@ -32,7 +32,8 @@ class GroceriesFragment : Fragment(R.layout.fragment_groceries) {
 
         viewModel.groceries.observe(viewLifecycleOwner, Observer {
             if (it.state.status == Status.SUCCESS) {
-                (binding.recyclerViewRepos.adapter as GroceryAdapter).submitList(it.data!!)
+                val groceries = it.data!!.toList()
+                (binding.recyclerViewRepos.adapter as GroceryAdapter).submitList(groceries)
             }
         })
 

@@ -3,15 +3,12 @@ package com.example.baseapp.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.baseapp.vo.Grocery
 import com.example.baseapp.databinding.ListItemGroceryBinding
+import com.example.baseapp.vo.Grocery
 
-class GroceryAdapter : RecyclerView.Adapter<GroceryViewHolder>() {
-
-    val list = ArrayList<Grocery>()
-
-    override fun getItemCount() = list.size
+class GroceryAdapter : ListAdapter<Grocery, GroceryViewHolder>(GroceryDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroceryViewHolder {
         return GroceryViewHolder(
@@ -24,14 +21,8 @@ class GroceryAdapter : RecyclerView.Adapter<GroceryViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: GroceryViewHolder, position: Int) {
-        val item = list[position]
+        val item = getItem(position)
         holder.bind(item)
-    }
-
-    fun submitList(groceries: List<Grocery>) {
-        list.clear()
-        list.addAll(groceries)
-        notifyDataSetChanged()
     }
 }
 
@@ -48,7 +39,11 @@ class GroceryViewHolder(private val binding: ListItemGroceryBinding) :
 
 class GroceryDiffCallback : DiffUtil.ItemCallback<Grocery>() {
 
-    override fun areItemsTheSame(oldItem: Grocery, newItem: Grocery) = oldItem.name == newItem.name
+    override fun areItemsTheSame(oldItem: Grocery, newItem: Grocery) =
+        oldItem == newItem
 
-    override fun areContentsTheSame(oldItem: Grocery, newItem: Grocery) = oldItem == newItem
+    override fun areContentsTheSame(oldItem: Grocery, newItem: Grocery) =
+        oldItem.name == newItem.name
+                && oldItem.weight == newItem.weight
+                && oldItem.color == newItem.color
 }
