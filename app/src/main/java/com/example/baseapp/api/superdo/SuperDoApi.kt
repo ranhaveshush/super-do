@@ -1,7 +1,6 @@
 package com.example.baseapp.api.superdo
 
-import com.example.baseapp.api.SupermarketService
-import com.example.baseapp.vo.Grocery
+import com.example.baseapp.BuildConfig
 import com.example.baseapp.vo.Resource
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -9,18 +8,14 @@ import kotlinx.coroutines.flow.channelFlow
 import okhttp3.*
 import org.json.JSONObject
 
+class SuperDoApi {
+    private val baseUrl = BuildConfig.SUPERMARKET_URL
 
-/**
- * This client implements the [SupermarketService] contract.
- */
-class SupermarketClient : SupermarketService {
-    private val BASE_URL = "ws://superdo-groceries.herokuapp.com/receive"
-
-    override fun listGroceries(): Flow<Resource<Grocery>> = channelFlow {
+    fun listGroceries(): Flow<Resource<GroceryResponse>> = channelFlow {
         val client = OkHttpClient.Builder().build()
 
         val request = Request.Builder()
-            .url(BASE_URL)
+            .url(baseUrl)
             .build()
 
         val listener = object : WebSocketListener() {
@@ -35,7 +30,7 @@ class SupermarketClient : SupermarketService {
 
                 if (!text.isNullOrEmpty()) {
                     val jsonObject = JSONObject(text)
-                    val grocery = Grocery.fromJson(jsonObject)
+                    val grocery = GroceryResponse.fromJson(jsonObject)
 
                     channel.offer(Resource.success(grocery))
                 }
@@ -54,7 +49,7 @@ class SupermarketClient : SupermarketService {
             ) {
                 println("FAILURE: ${t.message}")
 
-                val resource = Resource.error<Grocery>(t.message ?: "WebSocket Failure", t)
+                val resource = Resource.error<GroceryResponse>(t.message ?: "WebSocket Failure", t)
                 channel.offer(resource)
             }
         }

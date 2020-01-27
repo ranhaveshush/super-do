@@ -1,6 +1,8 @@
 package com.example.baseapp.util
 
-import com.example.baseapp.api.superdo.SupermarketClient
+import com.example.baseapp.api.SupermarketService
+import com.example.baseapp.api.superdo.SuperDoApi
+import com.example.baseapp.api.superdo.SuperDoClient
 import com.example.baseapp.repository.GroceriesRepository
 import com.example.baseapp.viewmodel.GroceryViewModelFactory
 
@@ -10,8 +12,8 @@ object InjectorUtils {
         GroceryViewModelFactory(getGroceriesRepository())
 
     private fun getGroceriesRepository(): GroceriesRepository =
-        GroceriesRepository(getSupermarketClient())
+        GroceriesRepository(getSupermarketService())
 
-    private fun getSupermarketClient(): SupermarketClient =
-        SupermarketClient()
+    private fun getSupermarketService(): SupermarketService =
+        SuperDoClient(SuperDoApi())
 }

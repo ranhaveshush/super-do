@@ -5,6 +5,12 @@ apply plugin: 'kotlin-kapt'
 
 apply from: "${project.rootDir}/config/gradle/moduleTasks.gradle"
 
+if (file("local.gradle").exists()) {
+    apply from: "local.gradle"
+} else {
+    logger.lifecycle("File app/local.gradle not found. Duplicate app/local.gradle.example and fill in your API key.")
+}
+
 android {
     compileSdkVersion version_compile_sdk
     defaultConfig {

@@ -1,0 +1,7 @@
+android {
+    buildTypes {
+        debug {
+            buildConfigField 'String', 'SUPERMARKET_URL', '"ws://superdo-groceries.herokuapp.com/receive"'
+        }
+    }
+}
