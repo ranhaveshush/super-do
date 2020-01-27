@@ -1,0 +1,23 @@
+apply plugin: "io.gitlab.arturbosch.detekt"
+
+detekt {
+    toolVersion = version_detekt_gradle
+    input = files(
+            "src/main/java",
+            "src/test/java",
+            "src/androidTest/java"
+    )
+    filters = ".*/resources/.*,.*/build/.*"
+    buildUponDefaultConfig = false
+    config = files("$project.rootDir/config/detekt/detekt-config.yml")
+    baseline = file("$project.rootDir/config/detekt/detekt-baseline.xml")
+    reports {
+        xml {
+            enabled = false
+        }
+        html {
+            enabled = true
+            destination = file("$project.buildDir/reports/detekt/detekt-results.html")
+        }
+    }
+}

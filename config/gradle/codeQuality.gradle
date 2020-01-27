@@ -1,0 +1,7 @@
+apply from: "$project.rootDir/config/gradle/tools/checkstyle.gradle"
+apply from: "$project.rootDir/config/gradle/tools/lint.gradle"
+apply from: "$project.rootDir/config/gradle/tools/ktlint.gradle"
+apply from: "$project.rootDir/config/gradle/tools/pmd.gradle"
+apply from: "$project.rootDir/config/gradle/tools/detekt.gradle"
+
+check.dependsOn 'checkstyle', 'lint', 'ktlint', 'pmd', 'detekt'

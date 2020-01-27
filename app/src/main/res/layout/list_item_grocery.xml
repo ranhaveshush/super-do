@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.graphics.Color" />
+
+        <variable
+                name="grocery"
+                type="com.example.baseapp.vo.Grocery" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#55000000"
+            android:padding="@dimen/padding_medium">
+
+        <View
+                android:id="@+id/view_groceryColor"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:background="@{Color.parseColor(grocery.bagColor)}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+                android:id="@+id/textView_groceryNameTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/list_item_grocery_name_title"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="?android:attr/textColorSecondary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_groceryColor"
+                tools:text="ITEM" />
+
+        <TextView
+                android:id="@+id/textView_groceryName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{grocery.name}"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView_groceryNameTitle"
+                tools:text="Tomatos" />
+
+        <TextView
+                android:id="@+id/textView_groceryWeightTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/list_item_grocery_weight"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="?android:attr/textColorSecondary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView_groceryName"
+                tools:text="WEIGHT" />
+
+        <TextView
+                android:id="@+id/textView_groceryWeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                android:text="@{grocery.weight}"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView_groceryWeightTitle"
+                tools:text="1.2Kg" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

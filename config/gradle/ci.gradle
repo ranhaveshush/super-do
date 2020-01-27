@@ -1,0 +1,4 @@
+task ci(dependsOn: ['check', 'test', 'runConnectedAndroidTest']) {
+    description = "Continiues integration task depends on 'check', 'test' and 'runConnectedAndroidTest' tasks."
+    group = "verification"
+}

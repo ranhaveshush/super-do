@@ -1,0 +1,28 @@
+android {
+    configurations {
+        ktlint
+    }
+    dependencies {
+        ktlint "com.pinterest:ktlint:$version_ktlint"
+    }
+}
+
+task ktlint(type: JavaExec) {
+    description = 'Check Kotlin code style.'
+    group = 'verification'
+
+    classpath = configurations.ktlint
+    main = "com.pinterest.ktlint.Main"
+
+    args "--reporter=plain", "--reporter=checkstyle,output=$project.buildDir/reports/ktlint/ktlint-results.xml", "src/**/*.kt"
+}
+
+task ktlintFormat(type: JavaExec) {
+    description = 'Fix Kotlin code style deviations.'
+    group = 'formatting'
+
+    classpath = configurations.ktlint
+    main = "com.pinterest.ktlint.Main"
+
+    args "-F", "src/**/*.kt"
+}

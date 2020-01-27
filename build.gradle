@@ -1,0 +1,62 @@
+buildscript {
+    // Build script plugins
+    ext.version_android_gradle = '3.5.2'
+    ext.version_kotlin_gradle = '1.3.61'
+    ext.version_detekt_gradle = '1.0.0-RC14'
+    ext.version_navigation_gradle = '2.1.0-alpha05'
+
+    repositories {
+        google()
+        jcenter()
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:${version_android_gradle}"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${version_kotlin_gradle}"
+        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${version_detekt_gradle}"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:${version_navigation_gradle}"
+    }
+}
+
+allprojects {
+    // Project
+    ext.version_code = 1
+    ext.version_name = "1.0.0"
+
+    // Android SDK
+    ext.version_min_sdk = 19
+    ext.version_target_sdk = 28
+    ext.version_compile_sdk = 28
+
+    // Test
+    ext.version_ext_junit = '1.1.2-alpha03'
+    ext.version_junit = '4.13-rc-2'
+    ext.version_runner = '1.3.0-alpha03'
+    ext.version_espresso_core = '3.3.0-alpha03'
+
+    // Kotlin
+    ext.version_ktlint = '0.32.0'
+    ext.version_kotlin_stdlib_jdk8 = '1.3.61'
+    ext.version_core_ktx = '1.2.0-rc01'
+    ext.version_kotlinx_coroutines = '1.2.1'
+
+    // AndroidX
+    ext.version_appcompat = '1.2.0-alpha01'
+    ext.version_constraintlayout = '2.0.0-beta4'
+    ext.version_lifecycle = '2.2.0-rc03'
+    ext.version_navigation = '2.2.0-rc04'
+
+    // Retrofit
+    ext.version_retrofit = '2.7.0'
+    ext.version_retrofit_call_adapter = '0.9.2'
+    ext.version_logging_interceptor = '3.12.3' // Latest version to support API level < 24.
+
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

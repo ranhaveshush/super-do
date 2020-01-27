@@ -1,0 +1,19 @@
+apply plugin: 'checkstyle'
+
+task checkstyle(type: Checkstyle) {
+    description 'The Checkstyle plugin performs quality checks on your project’s Java source files using Checkstyle and generates reports from these checks.'
+    group 'verification'
+
+    ignoreFailures false
+
+    configFile file("$project.rootDir/config/checkstyle/checkstyle-rules.xml")
+
+    source 'src'
+    classpath = files()
+
+    reports {
+        xml.enabled false
+        html.enabled true
+        html.destination file("$project.buildDir/reports/checkstyle/checkstyle-results.html")
+    }
+}

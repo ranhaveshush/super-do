@@ -1,0 +1,5 @@
+//apply from: "${project.rootDir}/config/gradle/dependenciesChecksums.gradle"
+//apply from: "${project.rootDir}/config/gradle/dependenciesCheck.gradle"
+apply from: "${project.rootDir}/config/gradle/codeQuality.gradle"
+apply from: "${project.rootDir}/config/gradle/runConnectedAndroidTest.gradle"
+apply from: "${project.rootDir}/config/gradle/ci.gradle"

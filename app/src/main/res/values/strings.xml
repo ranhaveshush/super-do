@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Base App</string>
+
+    <string name="fragment_groceries_title">Super.do Market!</string>
+
+    <string name="list_item_grocery_name_title">ITEM</string>
+    <string name="list_item_grocery_weight">WEIGHT</string>
+</resources>

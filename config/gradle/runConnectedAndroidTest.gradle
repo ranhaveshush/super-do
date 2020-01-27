@@ -1,0 +1,12 @@
+task runConnectedAndroidTest(type: Exec) {
+    description = "Runs connected android test on dedicated AVDs."
+    group = "verification"
+
+    final projectDir = "$rootProject.projectDir"
+    final moduleName = "$project.name"
+    final moduleVersion = "$project.version_name"
+
+    workingDir "$projectDir"
+
+    commandLine './config/scripts/run_connected_android_test.sh', "$moduleName", "$moduleVersion"
+}
